@@ -181,7 +181,7 @@ export default function ProfileOwnerView({ onBack }) {
                           setEditFormData(profileData)
                           setShowEditModal(true)
                         }}
-                        className="w-full flex items-center justify-center gap-2 border border-gray-400 py-2 rounded hover:bg-gray-50 font-medium text-sm transition-colors"
+                        className="w-full flex items-center justify-center gap-2 border bg-blue-600 py-2 rounded hover:bg-blue-600 font-medium text-white transition-colors"
                       >
                         Edit Profile <PenTool className="w-4 h-4" />
                       </button>
