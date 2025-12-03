@@ -1,11 +1,11 @@
 import React from 'react';
 import { MoreVertical } from 'lucide-react';
-import MessageBubble from './MassageBubble';
-import MessageInput from './MassageInput';
+import MessageBubble from './MessageBubble';
+import MessageInput from './MessageInput';
 import { useChat } from '../ChatContext';
 import Button2 from '../../../components/ui/button';
 
-const MassageWindow = () => {
+const MessageWindow = () => {
   const { selectedChat: chat } = useChat();
 
   if (!chat) {
@@ -65,4 +65,4 @@ const MassageWindow = () => {
   );
 };
 
-export default MassageWindow;
+export default MessageWindow;
