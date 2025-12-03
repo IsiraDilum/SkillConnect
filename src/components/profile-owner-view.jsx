@@ -52,7 +52,7 @@ export default function ProfileOwnerView({ onBack }) {
   const [showPortfolioEditor, setShowPortfolioEditor] = useState(false);
   const [newPortfolio, setNewPortfolio] = useState({ title: "", url: "" });
   const [showAllSkills, setShowAllSkills] = useState(false);
-
+  const [editId, setEditId] = useState(null); // <-- Important
 
 
 
@@ -134,58 +134,91 @@ export default function ProfileOwnerView({ onBack }) {
 
 
   return (
-      <div className="min-h-screen bg-[#F3F2EF] font-sans text-gray-800">
+      <div className="min-h-screen bg-[#FFFFFF] font-sans text-gray-900">
+
         {/* ================= HEADER ================= */}
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-40 px-4">
+        <header className="bg-white border-b border-[#A589FD] sticky top-0 z-40 px-4 shadow-sm">
           <div className="max-w-7xl mx-auto h-14 flex items-center justify-between">
+
+            {/* LEFT SIDE */}
             <div className="flex items-center gap-4 flex-1">
               <button
                   onClick={onBack}
-                  className="flex items-center gap-1 text-gray-600 hover:text-black font-medium transition-colors"
+                  className="flex items-center gap-1 text-gray-700 hover:text-[#7D4DF4] font-medium transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
-                <span className="hidden sm:inline">Back</span>
+
               </button>
 
-              <div className="w-8 h-8 bg-blue-600 text-white rounded flex items-center justify-center font-bold text-xs tracking-tighter">
-                LOGO
-              </div>
-
+              {/* SEARCH BAR */}
               <div className="relative w-full max-w-xs hidden md:block">
-              <span className="absolute left-3 top-2 text-gray-500">
-                <Search className="w-4 h-4" />
-              </span>
+  <span className="absolute left-3 top-2 text-[#7D4DF4]">
+    <Search className="w-5 h-5" />
+  </span>
+
                 <input
                     type="text"
                     placeholder="Search"
-                    className="w-full pl-9 pr-4 py-1.5 bg-gray-100 border-none rounded text-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                    className="w-full pl-9 pr-4 py-1.5
+               bg-[#FFFFFF]
+               border border-[#A589FD]
+               rounded
+               text-black
+               focus:ring-1 focus:ring-[#7D4DF4]
+               focus:border-[#7D4DF4]
+               transition-all
+               placeholder-gray-500"
+                />
+              </div>
+
+            </div>
+
+            {/* LOGO */}
+            <div className="flex justify-center flex-none px-0">
+
+
+              <div className="w-50 h-23 overflow-hidden">
+                <img
+                    src="/src/images/logo.png"
+                    alt="Logo2"
+                    className="w-full h-full object-contain"
                 />
               </div>
             </div>
 
-            <nav className="flex items-center gap-6 sm:gap-8">
-              <NavItem icon={<Home className="w-5 h-5" />} label="Home" active />
-              <NavItem icon={<User className="w-5 h-5" />} label="Network" />
-              <NavItem icon={<MessageCircle className="w-5 h-5" />} label="Messaging" />
-              <NavItem icon={<Bell className="w-5 h-5" />} label="Notifs" />
-              <div className="border-l pl-6 hidden sm:block">
+            {/* RIGHT SIDE NAVIGATION */}
+            <nav className="flex items-center gap-6 sm:gap-8 flex-1 justify-end">
+              <NavItem icon={<Home className="w-5 h-5 text-[#7D4DF4]" />} label="Home"  />
+              <NavItem icon={<User className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Network" />
+              <NavItem icon={<MessageCircle className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Messaging" />
+              <NavItem icon={<Bell className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Notifs" />
+
+              <div className="border-l pl-6 border-[#A589FD] hidden sm:block">
                 <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden cursor-pointer">
-                  <img src={profileData.profileImage} alt="Me" className="w-full h-full object-cover" />
+                  <img
+                      src={profileData.profileImage}
+                      alt="Me"
+                      className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </nav>
+
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto px-0 sm:px-4 py-6">
+
+        <main className="max-w-7xl mx-auto px-0 sm:px-4 py-6 ">
           <div className="flex flex-col lg:flex-row gap-6">
 
             {/* ================= LEFT COLUMN (Profile & Feed) ================= */}
             <div className="flex-1 min-w-0">
 
               {/* --- Profile Card --- */}
-              <div className="bg-white sm:rounded-xl shadow-sm border border-gray-300 overflow-hidden mb-4 relative">
-                {/* Cover Image */}
+              <div className="bg-white sm:rounded-xl shadow-[0_0_20px_#A589FD] overflow-hidden mb-4 relative">
+
+
+              {/* Cover Image */}
                 <div
                     className="h-40 sm:h-48 relative group rounded-b-xl overflow-hidden"
                     style={
@@ -194,7 +227,6 @@ export default function ProfileOwnerView({ onBack }) {
                           : { }
                     }
                 >
-                  {/* Gradient layer only if it's a gradient */}
                   {!profileData.coverImage?.startsWith("blob:") && (
                       <div className={`absolute inset-0 bg-gradient-to-r ${profileData.coverImage}`} />
                   )}
@@ -202,12 +234,11 @@ export default function ProfileOwnerView({ onBack }) {
                   {/* Edit Button */}
                   <button
                       onClick={handleOpenEditModal}
-                      className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur rounded-full shadow-sm hover:bg-white text-blue-600 transition-all opacity-0 group-hover:opacity-100 z-10"
+                      className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur rounded-full shadow-sm hover:bg-[#E2D0F8] text-[#7D4DF4] transition-all opacity-0 group-hover:opacity-100 z-10"
                   >
                     <PenTool className="w-4 h-4" />
                   </button>
                 </div>
-
 
                 <div className="px-4 sm:px-8 pb-8 relative">
                   {/* Avatar */}
@@ -219,10 +250,11 @@ export default function ProfileOwnerView({ onBack }) {
                           className="w-full h-full object-cover"
                       />
                     </div>
+
                     <div className="mb-2 hidden sm:block">
                       <button
                           onClick={handleOpenEditModal}
-                          className="flex items-center gap-2 border border-blue-600 text-blue-600 px-4 py-1.5 rounded-full hover:bg-blue-50 font-semibold text-sm transition-colors"
+                          className="flex items-center gap-2 border border-[#7D4DF4] text-[#7D4DF4] px-4 py-1.5 rounded-full hover:bg-[#E2D0F8] font-semibold text-sm transition-colors"
                       >
                         <PenTool className="w-3 h-3" /> Edit Profile
                       </button>
@@ -230,44 +262,56 @@ export default function ProfileOwnerView({ onBack }) {
                   </div>
 
                   <div className="flex flex-col lg:flex-row gap-8">
+
                     {/* Left: Info */}
                     <div className="flex-1">
                       <div className="mb-4">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
-                          <h1 className="text-2xl font-bold text-gray-900">
-                            {profileData.name} <span className="text-gray-500 text-lg font-normal">{profileData.pronouns}</span>
+
+                          <h1 className="text-2xl font-bold text-black">
+                            {profileData.name} <span className="text-gray-600 text-lg font-normal">{profileData.pronouns}</span>
                           </h1>
-                          <span className="w-fit text-blue-700 bg-blue-50 border border-blue-200 text-[10px] px-2 py-0.5 rounded font-medium">
-                          Verified
+
+                          <span className="w-fit flex  items-center gap-1 text-blue-700 bg-blue-50 border border-blue-200 text-[12px] px-2 py-0.5 rounded font-medium">
+                          <Star className="w-3 h-4 text-yellow-500 fill-yellow-500" />4.5
                         </span>
                         </div>
-                        <p className="text-base text-gray-900 font-medium mb-1">{profileData.position}</p>
-                        <p className="text-sm text-gray-500 font-medium">{profileData.university}</p>
-                        <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+
+                        <p className="text-base text-black font-medium mb-1">{profileData.position}</p>
+                        <p className="text-sm text-gray-600 font-medium">{profileData.university}</p>
+
+                        <p className="text-sm text-gray-600 mt-1 flex items-center gap-1">
                           <Globe className="w-3 h-3" /> Colombo, Western Province, Sri Lanka
                         </p>
                       </div>
 
-                      <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
-                        <h3 className="text-sm font-semibold mb-2 text-gray-900">About</h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">{profileData.description}</p>
+                      <div className="mb-6 p-4 bg-[#E2D0F8] rounded-lg border border-[#A589FD]">
+                        <h3 className="text-sm font-semibold mb-2 text-black">About</h3>
+                        <p className="text-sm text-gray-700 leading-relaxed">{profileData.description}</p>
                       </div>
 
                       {/* Mobile Edit Button */}
                       <button
                           onClick={handleOpenEditModal}
-                          className="w-full sm:hidden mb-4 flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-full hover:bg-gray-50 font-semibold text-gray-600 text-sm"
+                          className="w-full sm:hidden mb-4 flex items-center justify-center gap-2 border border-[#A589FD] py-2 rounded-full hover:bg-[#E2D0F8] font-semibold text-gray-700 text-sm"
                       >
                         Edit Profile
                       </button>
 
                       <div className="flex gap-3">
+
+                        {/* Pokes button */}
                         <button
                             onClick={() => {
                               setShowPokesPopup(true);
-                              setNewPokesCount(0); // remove notification when popup opens
+                              setNewPokesCount(0);
                             }}
-                            className="relative flex-1 bg-blue-600 text-white py-2 rounded-full hover:bg-blue-700 font-semibold text-sm shadow-sm transition-colors"
+                            className="relative flex-1 bg-gradient-to-r from-[#7D4DF4] to-[#00F0FF]
+           text-white py-2 rounded-full
+           hover:from-[#9572F9] hover:to-[#703BEA]
+           font-semibold text-sm shadow-sm transition-all"
+
+
                         >
                           Pokes
                           {newPokesCount > 0 && (
@@ -278,13 +322,16 @@ export default function ProfileOwnerView({ onBack }) {
                         </button>
 
 
-                        <button className="flex-1 border border-gray-400 py-2 rounded-full hover:bg-gray-100 text-gray-600 font-semibold text-sm transition-colors">
+                        {/* Share Profile */}
+                        <button className="flex-1 border border-[#A589FD] py-2 rounded-full hover:bg-[#E2D0F8] text-black font-semibold text-sm transition-colors">
                           Share Profile
                         </button>
                       </div>
                     </div>
+
+                    {/* ================= Pokes Popup ================= */}
                     {showPokesPopup && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn border-[#A589FD]">
 
                           {/* Backdrop */}
                           <div
@@ -295,18 +342,16 @@ export default function ProfileOwnerView({ onBack }) {
                           {/* Popup */}
                           <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-6 animate-slideUp">
 
-                            {/* Header */}
                             <div className="flex justify-between items-center mb-4">
-                              <h3 className="text-lg font-semibold text-gray-800 border-b pb-1 w-full">
+                              <h3 className="text-lg font-semibold text-black border-b pb-1 w-full">
                                 Who poked you 👆
                               </h3>
                             </div>
 
-                            {/* Poked Users List */}
                             <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
 
                               {pokesData.length === 0 && (
-                                  <p className="text-sm text-gray-500 text-center py-4">
+                                  <p className="text-sm text-gray-600 text-center py-4">
                                     No one poked you yet 🙂
                                   </p>
                               )}
@@ -314,21 +359,19 @@ export default function ProfileOwnerView({ onBack }) {
                               {pokesData.map((poked) => (
                                   <div
                                       key={poked.id}
-                                      className="flex items-center justify-between p-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition-colors"
+                                      className="flex items-center justify-between p-3 rounded-xl border border-[#A589FD] hover:bg-[#E2D0F8] transition-colors"
                                   >
-                                    {/* Avatar + Name */}
                                     <div className="flex items-center gap-3">
                                       <img
                                           src={poked.avatar}
                                           alt={poked.name}
                                           className="w-10 h-10 rounded-full border object-cover shadow-sm"
                                       />
-                                      <span className="font-medium text-gray-800">
-                {poked.name}
-              </span>
+                                      <span className="font-medium text-black">
+                            {poked.name}
+                          </span>
                                     </div>
 
-                                    {/* Rating Stars */}
                                     <div className="flex gap-1">
                                       {[1, 2, 3, 4, 5].map((i) => (
                                           <Star
@@ -346,9 +389,8 @@ export default function ProfileOwnerView({ onBack }) {
 
                             </div>
 
-                            {/* Close Button */}
                             <button
-                                className="mt-5 w-full py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 font-semibold text-sm transition-all shadow-md"
+                                className="mt-5 w-full py-2 bg-[#7D4DF4] text-white rounded-full hover:bg-[#6939E8] font-semibold text-sm transition-all shadow-md"
                                 onClick={() => setShowPokesPopup(false)}
                             >
                               Close
@@ -361,8 +403,8 @@ export default function ProfileOwnerView({ onBack }) {
 
 
                     {/* Right: Skills Box */}
-                    <div className="lg:w-64 flex-shrink-0">
-                      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm h-full">
+                    <div className="lg:w-64 flex-shrink-0  ">
+                      <div className="bg-white border  rounded-lg p-4 shadow-sm h-full bg-[#A589FD] border-[#A589FD]">
                         <div className="flex items-center justify-between mb-4">
                           <h3 className="font-bold text-sm">Top Skills</h3>
                           <PenTool
@@ -403,7 +445,7 @@ export default function ProfileOwnerView({ onBack }) {
               </div>
 
               {/* --- Start a Post (Trigger) --- */}
-              <div className="bg-white sm:rounded-xl shadow-sm border border-gray-300 p-4 mb-4">
+              <div className="bg-white sm:rounded-xl shadow-[0_0_20px_#A589FD] p-4 mb-4">
                 <div className="flex gap-3 mb-2">
                   <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
                     <img src={profileData.profileImage} alt="Me" className="w-full h-full object-cover" />
@@ -423,7 +465,7 @@ export default function ProfileOwnerView({ onBack }) {
               </div>
 
               {/* --- Feed Posts --- */}
-              <div className="space-y-4">
+              <div className="space-y-4 ">
                 {posts.map((post) => (
                     <PostCard key={post.id} {...post} currentUserImage={profileData.profileImage} />
                 ))}
@@ -434,14 +476,14 @@ export default function ProfileOwnerView({ onBack }) {
             <div className="w-full lg:w-80 space-y-4">
 
               {/* --- Portfolio Links --- */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-4">
+              <div className="bg-[#FFFFFF] rounded-xl shadow-[0_0_20px_#A589FD] p-4">
 
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold text-gray-900 text-sm">Portfolio Links</h3>
+                  <h3 className="font-bold text-black text-sm">Portfolio Links</h3>
 
                   <button
                       onClick={() => setShowPortfolioEditor(true)}
-                      className="text-gray-600 hover:text-gray-900"
+                      className="text-black hover:text-[#7D4DF4]"
                   >
                     <PenTool className="w-3 h-3" />
                   </button>
@@ -454,7 +496,13 @@ export default function ProfileOwnerView({ onBack }) {
                           icon={item.icon}
                           title={item.title}
                           url={item.url}
+                          onEdit={() => {
+                            setEditId(item.id);                      // switching to UPDATE mode
+                            setNewPortfolio({ title: item.title, url: item.url });
+                            setShowPortfolioEditor(true);
+                          }}
                       />
+
                   ))}
                 </div>
 
@@ -463,14 +511,16 @@ export default function ProfileOwnerView({ onBack }) {
                   <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
                     <div className="bg-white w-80 p-5 rounded-xl shadow-xl space-y-4">
 
-                      <h2 classname="text-sm font-semibold text-gray-800">Add Portfolio Link</h2>
+                      <h2 className="text-sm font-semibold text-black">
+                        {editId ? "Update Portfolio Link" : "Add Portfolio Link"}
+                      </h2>
 
                       <input
                           type="text"
                           placeholder="Platform Name (e.g., GitHub)"
                           value={newPortfolio.title}
                           onChange={(e) => setNewPortfolio({ ...newPortfolio, title: e.target.value })}
-                          className="w-full border px-3 py-2 rounded-md text-sm"
+                          className="w-full border border-[#E2D0F8] px-3 py-2 rounded-md text-sm focus:ring-[#7D4DF4] focus:border-[#7D4DF4] focus:ring-1"
                       />
 
                       <input
@@ -478,35 +528,53 @@ export default function ProfileOwnerView({ onBack }) {
                           placeholder="URL (e.g., github.com/username)"
                           value={newPortfolio.url}
                           onChange={(e) => setNewPortfolio({ ...newPortfolio, url: e.target.value })}
-                          className="w-full border px-3 py-2 rounded-md text-sm"
+                          className="w-full border border-[#E2D0F8] px-3 py-2 rounded-md text-sm focus:ring-[#7D4DF4] focus:border-[#7D4DF4] focus:ring-1"
                       />
 
                       <div className="flex justify-end gap-2">
                         <button
-                            className="px-3 py-2 bg-gray-200 rounded-md text-sm"
-                            onClick={() => setShowPortfolioEditor(false)}
+                            className="px-3 py-2 bg-[#E2D0F8] rounded-md text-sm hover:bg-[#A589FD] text-black"
+                            onClick={() => {
+                              setShowPortfolioEditor(false);
+                              setEditId(null);
+                              setNewPortfolio({ title: "", url: "" });
+                            }}
                         >
                           Cancel
                         </button>
 
                         <button
-                            className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm"
+                            className="px-3 py-2 bg-[#7D4DF4] text-white rounded-md text-sm hover:bg-[#A589FD]"
                             onClick={() => {
-                              setPortfolioLinks([
-                                ...portfolioLinks,
-                                {
-                                  id: Date.now(),
-                                  title: newPortfolio.title,
-                                  url: newPortfolio.url,
-                                  icon: <Globe className="w-5 h-5" />, // default icon
-                                },
-                              ]);
+                              if (editId) {
+                                // UPDATE EXISTING
+                                setPortfolioLinks((prev) =>
+                                    prev.map((item) =>
+                                        item.id === editId
+                                            ? { ...item, title: newPortfolio.title, url: newPortfolio.url }
+                                            : item
+                                    )
+                                );
+                              } else {
+                                // ADD NEW
+                                setPortfolioLinks((prev) => [
+                                  ...prev,
+                                  {
+                                    id: Date.now(),
+                                    title: newPortfolio.title,
+                                    url: newPortfolio.url,
+                                    icon: <Globe className="w-5 h-5" />,
+                                  },
+                                ]);
+                              }
 
+                              // Reset popup
                               setNewPortfolio({ title: "", url: "" });
+                              setEditId(null);
                               setShowPortfolioEditor(false);
                             }}
                         >
-                          Add
+                          {editId ? "Update" : "Add"}
                         </button>
                       </div>
 
@@ -516,37 +584,38 @@ export default function ProfileOwnerView({ onBack }) {
 
 
 
+
               {/* --- Feedback --- */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-4">
+              <div className="bg-[#FFFFFF] rounded-xl shadow-[0_0_20px_#A589FD] p-4">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-bold text-sm">Feedback</h3>
-                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">4.8 Avg</span>
+                  <h3 className="font-bold text-sm text-black">Feedback</h3>
+                  <span className="text-xs bg-[#E3F9C2] text-black px-2 py-1 rounded-full font-medium">4.8 Avg</span>
                 </div>
                 <div className="space-y-4 mb-4">
                   {feedbackItems.map((item) => (
-                      <div key={item.id} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
+                      <div key={item.id} className="border-b border-[#A589FD] pb-3 last:border-0 last:pb-0">
                         <div className="flex justify-between items-start mb-1">
-                          <span className="text-xs font-bold text-gray-800">{item.name}</span>
+                          <span className="text-xs font-bold text-black">{item.name}</span>
                           <div className="flex gap-0.5">
                             {[1, 2, 3, 4, 5].map((i) => (
                                 <Star
                                     key={i}
                                     className={`w-2.5 h-2.5 ${
-                                        i <= item.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-200"
+                                        i <= item.rating ? "fill-[#FFD700] text-[#FFD700]" : "text-[#E2D0F8]"
                                     }`}
                                 />
                             ))}
                           </div>
                         </div>
-                        <p className="text-xs text-gray-600 italic">"{item.comment}"</p>
+                        <p className="text-xs text-black italic">"{item.comment}"</p>
                       </div>
                   ))}
                 </div>
               </div>
 
               {/* --- Similar Profiles --- */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-4">
-                <h3 className="font-bold text-sm mb-4">People with similar skills</h3>
+              <div className="bg-[#FFFFFF] rounded-xl shadow-[0_0_20px_#A589FD] p-4">
+                <h3 className="font-bold text-sm mb-4 text-black">Similar skills Peers</h3>
                 <div className="space-y-4">
                   {/* These are read-only views with Average ratings */}
                   <SimilarProfile name="Alex Johnson" role="Senior Product Designer" avgRating={4.8} />
@@ -563,27 +632,27 @@ export default function ProfileOwnerView({ onBack }) {
 
         {/* --- 1. CREATE POST POPUP --- */}
         {showPostModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 border-[#A589FD]">
               {/* Backdrop */}
               <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowPostModal(false)}></div>
 
               {/* Modal Content */}
-              <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg relative z-10 flex flex-col max-h-[90vh]">
-                <div className="flex justify-between items-center p-4 border-b border-gray-100">
-                  <h2 className="text-lg font-semibold text-gray-700">Create a post</h2>
-                  <button onClick={() => setShowPostModal(false)} className="text-gray-500 hover:bg-gray-100 p-2 rounded-full transition-colors">
+              <div className="bg-[#FFFFFF] rounded-xl shadow-2xl w-full max-w-lg relative z-10 flex flex-col max-h-[90vh]">
+                <div className="flex justify-between items-center p-4 border-b border-[#A589FD]">
+                  <h2 className="text-lg font-semibold text-black">Create a post</h2>
+                  <button onClick={() => setShowPostModal(false)} className="text-black hover:bg-[#E2D0F8] p-2 rounded-full transition-colors">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
                 <div className="p-4 flex-1 overflow-y-auto">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+                    <div className="w-10 h-10 rounded-full bg-[#E2D0F8] overflow-hidden">
                       <img src={profileData.profileImage} alt="Me" className="w-full h-full object-cover" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm text-gray-800">{profileData.name}</h4>
-                      <button className="text-xs border border-gray-400 rounded-full px-2 py-0.5 text-gray-500 flex items-center gap-1 font-medium">
+                      <h4 className="font-bold text-sm text-black">{profileData.name}</h4>
+                      <button className="text-xs border border-[#E2D0F8] rounded-full px-2 py-0.5 text-black flex items-center gap-1 font-medium">
                         <Globe className="w-3 h-3" /> Anyone
                       </button>
                     </div>
@@ -593,30 +662,30 @@ export default function ProfileOwnerView({ onBack }) {
                       value={newPostContent}
                       onChange={(e) => setNewPostContent(e.target.value)}
                       placeholder="What do you want to talk about?"
-                      className="w-full h-40 resize-none text-base outline-none text-gray-700 placeholder:text-gray-400"
+                      className="w-full h-40 resize-none text-base outline-none text-black placeholder:text-[#A589FD]"
                       autoFocus
                   />
 
                   {/* Visual placeholder for rich text actions */}
                   <div className="flex items-center gap-4 mt-2">
-                    <button className="text-gray-500 hover:bg-gray-100 p-2 rounded-full"><ImageIcon className="w-5 h-5"/></button>
-                    <button className="text-gray-500 hover:bg-gray-100 p-2 rounded-full"><Video className="w-5 h-5"/></button>
-                    <button className="text-gray-500 hover:bg-gray-100 p-2 rounded-full"><Calendar className="w-5 h-5"/></button>
-                    <button className="text-gray-500 hover:bg-gray-100 p-2 rounded-full"><MoreHorizontal className="w-5 h-5"/></button>
+                    <button className="text-black hover:bg-[#E2D0F8] p-2 rounded-full"><ImageIcon className="w-5 h-5"/></button>
+                    <button className="text-black hover:bg-[#E2D0F8] p-2 rounded-full"><Video className="w-5 h-5"/></button>
+                    <button className="text-black hover:bg-[#E2D0F8] p-2 rounded-full"><Calendar className="w-5 h-5"/></button>
+                    <button className="text-black hover:bg-[#E2D0F8] p-2 rounded-full"><MoreHorizontal className="w-5 h-5"/></button>
                   </div>
                 </div>
 
-                <div className="p-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50 rounded-b-xl">
+                <div className="p-4 border-t border-[#E2D0F8] flex justify-end gap-3 bg-[#E2D0F8] rounded-b-xl">
                   <button
                       onClick={() => setShowPostModal(false)}
-                      className="px-4 py-1.5 text-gray-600 font-medium hover:bg-gray-200 rounded-full transition-colors"
+                      className="px-4 py-1.5 text-black font-medium hover:bg-[#A589FD] rounded-full transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                       disabled={!newPostContent.trim()}
                       onClick={handlePostSubmit}
-                      className="px-6 py-1.5 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                      className="px-6 py-1.5 bg-[#7D4DF4] text-white font-semibold rounded-full hover:bg-[#A589FD] disabled:bg-[#E2D0F8] disabled:cursor-not-allowed transition-colors"
                   >
                     Post
                   </button>
@@ -983,7 +1052,7 @@ function ActionButton({ icon, label, onClick }) {
 
 function PostCard({ name, time, content, hasImage, currentUserImage }) {
   return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-0 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-[0_0_20px_#A589FD] p-0 overflow-hidden ">
         <div className="p-4 pb-2">
           <div className="flex justify-between items-start mb-2">
             <div className="flex items-center gap-3">
@@ -1008,7 +1077,7 @@ function PostCard({ name, time, content, hasImage, currentUserImage }) {
             </div>
         )}
 
-        <div className="px-4 py-2 border-t border-gray-100">
+        <div className="px-4 py-2 border-t border-gray-100 ">
           <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
             <div className="flex items-center gap-1"><ThumbsUp className="w-3 h-3 bg-blue-500 text-white rounded-full p-0.5"/> 128</div>
             <div>5 comments • 2 shares</div>
@@ -1032,18 +1101,25 @@ function PostAction({ icon, label }) {
   )
 }
 
-function PortfolioLink({ icon, title, url }) {
+function PortfolioLink({ icon, title, url, onEdit }) {
   return (
       <div className="flex items-center gap-4 p-3 border border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md cursor-pointer transition-all bg-gray-50">
+
         <div className="text-gray-700 bg-white p-2 rounded shadow-sm">{icon}</div>
+
         <div className="flex-1 overflow-hidden">
           <p className="text-xs font-bold uppercase text-gray-800 tracking-wide">{title}</p>
           <p className="text-xs text-blue-600 truncate">{url}</p>
         </div>
-        <ChevronLeft className="w-4 h-4 text-gray-400 rotate-180" />
+
+        {/* EDIT BUTTON */}
+        <button onClick={onEdit} className="text-gray-400 hover:text-[#7D4DF4]">
+          <PenTool className="w-4 h-4" />
+        </button>
       </div>
-  )
+  );
 }
+
 function SimilarProfile({ name, role, avgRating }) {
   return (
       <div className="flex items-center gap-3 border-b border-gray-100 pb-3 last:border-0 last:pb-0">
@@ -1058,9 +1134,10 @@ function SimilarProfile({ name, role, avgRating }) {
             </div>
           </div>
           <p className="text-xs text-gray-500 truncate">{role}</p>
-          <button className="mt-1 text-xs font-semibold text-gray-500 border border-gray-400 rounded-full px-3 py-0.5 hover:border-black hover:text-black transition-colors">
+          <button className="mt-1 text-xs font-semibold bg-gradient-to-r from-[#7D4DF4] to-[#00F0FF] border border-gray-300 text-white rounded-full px-3 py-1 hover:border-black hover:text-gray-700 transition-colors">
             View Profile
           </button>
+
         </div>
       </div>
   )

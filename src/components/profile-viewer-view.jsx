@@ -49,44 +49,70 @@ export default function ProfileViewerView({ onBack }) {
   }
 
   return (
-      <div className="min-h-screen bg-[#F3F2EF] font-sans text-gray-800">
+      <div className="min-h-screen bg-[#FFFFFF] font-sans text-gray-800">
         {/* ================= HEADER ================= */}
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-40 px-4">
+        <header className="bg-white border-b border-[#A589FD] sticky top-0 z-40 px-4 shadow-sm">
           <div className="max-w-7xl mx-auto h-14 flex items-center justify-between">
+
+            {/* LEFT SIDE */}
             <div className="flex items-center gap-4 flex-1">
               <button
                   onClick={onBack}
                   className="flex items-center gap-1 text-gray-600 hover:text-black font-medium transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
-                <span className="hidden sm:inline">Back</span>
+
               </button>
 
-              <div className="w-8 h-8 bg-blue-600 text-white rounded flex items-center justify-center font-bold text-xs tracking-tighter">
-                LOGO
-              </div>
-
+              {/* SEARCH BAR */}
               <div className="relative w-full max-w-xs hidden md:block">
-              <span className="absolute left-3 top-2 text-gray-500">
-                <Search className="w-4 h-4" />
-              </span>
+  <span className="absolute left-3 top-2 text-[#7D4DF4]">
+    <Search className="w-5 h-5" />
+  </span>
+
                 <input
                     type="text"
                     placeholder="Search"
-                    className="w-full pl-9 pr-4 py-1.5 bg-gray-100 border-none rounded text-sm focus:ring-2 focus:ring-blue-500 transition-all"
+                    className="w-full pl-9 pr-4 py-1.5
+               bg-[#FFFFFF]
+               border border-[#A589FD]
+               rounded
+               text-black
+               focus:ring-1 focus:ring-[#7D4DF4]
+               focus:border-[#7D4DF4]
+               transition-all
+               placeholder-gray-500"
                 />
               </div>
             </div>
 
-            <nav className="flex items-center gap-6 sm:gap-8">
-              <NavItem icon={<Home className="w-5 h-5" />} label="Home" />
-              <NavItem icon={<User className="w-5 h-5" />} label="Network" />
-              <NavItem icon={<MessageCircle className="w-5 h-5" />} label="Messaging" />
-              <NavItem icon={<Bell className="w-5 h-5" />} label="Notifs" />
-              <div className="border-l pl-6 hidden sm:block">
-                {/* This represents the viewer (ME), not the profile being viewed */}
-                <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-white text-xs">
-                  ME
+            {/* LOGO*/}
+            <div className="flex justify-center flex-none px-0 gap-0">
+              <div className="w-50 h-23 overflow-hidden">
+                <img
+                    src="/src/images/logo.png"
+                    alt="Logo2"
+                    className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+
+
+
+            {/* RIGHT SIDE NAVIGATION */}
+            <nav className="flex items-center gap-6 sm:gap-8 flex-1 justify-end">
+              <NavItem icon={<Home className="w-5 h-5 text-[#7D4DF4]" />} label="Home"  />
+              <NavItem icon={<User className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Network" />
+              <NavItem icon={<MessageCircle className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Messaging" />
+              <NavItem icon={<Bell className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Notifs" />
+
+              <div className="border-l pl-6 border-[#A589FD] hidden sm:block">
+                <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden cursor-pointer">
+                  <img
+                      src="/user-profile-illustration.png"
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </nav>
@@ -99,7 +125,7 @@ export default function ProfileViewerView({ onBack }) {
             {/* ================= LEFT COLUMN ================= */}
             <div className="flex-1 min-w-0">
               {/* --- Profile Card --- */}
-              <div className="bg-white sm:rounded-xl shadow-sm border border-gray-300 overflow-hidden mb-4 relative">
+              <div className="bg-white sm:rounded-xl shadow-[0_0_20px_#A589FD] overflow-hidden mb-4 relative">
                 {/* Cover Image */}
                 <div className="h-40 sm:h-48 bg-gradient-to-r from-slate-500 to-slate-700 relative"></div>
 
@@ -123,8 +149,8 @@ export default function ProfileViewerView({ onBack }) {
                           <h1 className="text-2xl font-bold text-gray-900">
                             Alex Anderson <span className="text-gray-500 text-lg font-normal">(He/Him)</span>
                           </h1>
-                          <span className="w-fit flex items-center gap-1 text-blue-700 bg-blue-50 border border-blue-200 text-[10px] px-2 py-0.5 rounded font-medium">
-                          <CheckCircle className="w-3 h-3" /> Verified
+                          <span className="w-fit flex  items-center gap-1 text-blue-700 bg-blue-50 border border-blue-200 text-[12px] px-2 py-0.5 rounded font-medium">
+                          <Star className="w-3 h-4 text-yellow-500 fill-yellow-500" />4.5
                         </span>
                         </div>
                         <p className="text-base text-gray-900 font-medium mb-1">Product Manager | UX Enthusiast</p>
@@ -135,7 +161,7 @@ export default function ProfileViewerView({ onBack }) {
                       </div>
 
                       {/* About Section */}
-                      <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                      <div className="mb-6 p-4  rounded-lg bg-[#E2D0F8] rounded-lg border border-[#A589FD]">
                         <h3 className="text-sm font-semibold mb-2 text-gray-900">About</h3>
                         <p className="text-sm text-gray-600 leading-relaxed">
                           Passionate product manager with expertise in digital transformation. Creative problem solver committed to user-centric design and innovation.
@@ -146,9 +172,9 @@ export default function ProfileViewerView({ onBack }) {
                       <div className="flex gap-3 mb-4">
                         <button
                             onClick={() => setIsConnected(!isConnected)}
-                            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-full font-semibold text-sm transition-colors ${
+                            className={`flex-1 flex  bg-gradient-to-r from-[#7D4DF4] to-[#00F0FF] items-center justify-center gap-2 py-2 rounded-full font-semibold text-sm transition-colors ${
                                 isConnected
-                                    ? "bg-white border border-gray-400 text-gray-600 hover:bg-gray-50"
+                                    ? "bg-white border border-gray-400 text-white hover:bg-gray-50"
                                     : "bg-blue-600 text-white hover:bg-blue-700 shadow-sm"
                             }`}
                         >
@@ -171,7 +197,7 @@ export default function ProfileViewerView({ onBack }) {
 
                     {/* Right: Skills Box */}
                     <div className="lg:w-64 flex-shrink-0">
-                      <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm h-full">
+                      <div className="bg-white border  rounded-lg p-4 shadow-sm h-full bg-[#A589FD] border-[#A589FD]">
                         <h3 className="font-bold text-sm mb-4">Top Skills</h3>
                         <div className="space-y-4">
                           <SkillItem
@@ -223,7 +249,7 @@ export default function ProfileViewerView({ onBack }) {
             <div className="w-full lg:w-80 space-y-4">
 
               {/* --- Portfolio Links --- */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-4">
+              <div className="bg-[#FFFFFF] rounded-xl shadow-[0_0_20px_#A589FD] p-4">
                 <h3 className="font-bold text-gray-900 mb-4 text-sm">Portfolio Links</h3>
                 <div className="space-y-3">
                   <PortfolioLink icon={<Github className="w-5 h-5" />} title="GitHub" url="github.com/alex" />
@@ -233,20 +259,20 @@ export default function ProfileViewerView({ onBack }) {
               </div>
 
               {/* --- Feedback Section (Interactive) --- */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-4">
+              <div className="bg-white rounded-xl shadow-[0_0_20px_#A589FD] border border-gray-300 p-4">
                 <div className="flex justify-between items-center mb-4">
                   <div className="flex items-center gap-2">
                     <h3 className="font-bold text-sm">Feedback</h3>
                     <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded-full text-gray-600 font-medium">12 Reviews</span>
                   </div>
                   <div className="flex gap-0.5">
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-bold ml-1">4.5</span>
+
+                    <span className="text-xs bg-[#E3F9C2] text-black px-2 py-1 rounded-full font-medium">4.8 Avg</span>
                   </div>
                 </div>
 
                 {/* Add Feedback Input */}
-                <div className="bg-blue-50/50 rounded-lg p-3 border border-blue-100 mb-4">
+                <div className="bg-blue-50/50 rounded-lg p-3 border border-blue-100 shadow-[0_0_10px_#A589FD] mb-4">
                   <p className="text-xs font-semibold mb-2 text-gray-700">Leave a review for Alex</p>
                   <div className="flex gap-1 mb-3">
                     {[1, 2, 3, 4, 5].map((i) => (
@@ -284,7 +310,7 @@ export default function ProfileViewerView({ onBack }) {
                 </div>
 
                 {/* Feedback List */}
-                <div className="space-y-4 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                <div className=" space-y-4 max-h-60 overflow-y-auto custom-scrollbar pr-1">
                   {feedbackItems.map((item) => (
                       <div key={item.id} className="border-b border-gray-100 pb-3 last:border-0 last:pb-0">
                         <div className="flex justify-between items-start mb-1">
@@ -307,8 +333,8 @@ export default function ProfileViewerView({ onBack }) {
               </div>
 
               {/* --- Similar Profiles --- */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-4">
-                <h3 className="font-bold text-sm mb-4">People with similar skills</h3>
+              <div className="bg-[#FFFFFF] rounded-xl shadow-[0_0_20px_#A589FD] p-4">
+                <h3 className="font-bold text-sm mb-4 text-black">People with similar skills</h3>
                 <div className="space-y-4">
                   {/* These are read-only views with Average ratings */}
                   <SimilarProfile name="Alex Johnson" role="Senior Product Designer" avgRating={4.8} />
@@ -358,7 +384,7 @@ function SkillItem({ icon, title, sub, stars }) {
 
 function PostCard({ name, time, content, hasImage }) {
   return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-300 p-0 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-[0_0_20px_#A589FD] border border-gray-300 p-0 overflow-hidden">
         <div className="p-4 pb-2">
           <div className="flex justify-between items-start mb-2">
             <div className="flex items-center gap-3">
@@ -426,7 +452,7 @@ function SimilarProfile({ name, role, avgRating }) {
             </div>
           </div>
           <p className="text-xs text-gray-500 truncate">{role}</p>
-          <button className="mt-1 text-xs font-semibold text-gray-500 border border-gray-400 rounded-full px-3 py-0.5 hover:border-black hover:text-black transition-colors">
+          <button className="mt-1 text-xs font-semibold bg-gradient-to-r from-[#7D4DF4] to-[#00F0FF] border border-gray-300 text-white rounded-full px-3 py-1 hover:border-black hover:text-gray-700 transition-colors">
             View Profile
           </button>
         </div>
