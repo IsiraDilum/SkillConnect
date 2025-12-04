@@ -1,11 +1,11 @@
 import ChatSearch from './Components/ChatSearch';
 import ChatList from './Components/ChatList';
-import MassageWindow from './Components/MassageWindow';
+import MessageWindow from './Components/MessageWindow';
 import NavBar from '../../components/NavBar';
 import React from 'react';
 import { ChatProvider } from './ChatContext'; 
 
-const MassagePage = () => {
+const MessagePage = () => {
   return ( 
     <ChatProvider>
       <div className="w-6xl flex flex-col h-screen bg-white font-sans">
@@ -20,7 +20,7 @@ const MassagePage = () => {
             </div>
             <div className="flex-1 h-full bg-white">
             
-              <MassageWindow />
+              <MessageWindow />
             </div>
           </div>
         </div>
@@ -29,4 +29,4 @@ const MassagePage = () => {
   );
 };
 
-export default MassagePage;
+export default MessagePage;

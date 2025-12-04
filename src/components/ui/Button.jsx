@@ -1,21 +1,9 @@
 const Button2 = ({ children, className = "", ...props }) => {
   return (
     <button 
-      className={`px-6 py-2.5 text-sm font-semibold text-white 
-        bg-gradient-to-br from-purple-900/30 via-purple-800/20 to-purple-700/40
-        backdrop-blur-md
-        border border-white/30
-        rounded-lg
-        shadow-lg shadow-gray-400/30
-        hover:bg-gradient-to-br hover:from-purple-500/40 hover:via-purple-800/30 hover:to-purple-600/40
-        hover:shadow-xl hover:shadow-purple-300
-        hover:border-purple-400/50
-        hover:scale-105
-        transition-all duration-300
-        relative overflow-hidden
-        before:absolute before:inset-0 
-        before:bg-gradient-to-br before:from-white/5 before:to-transparent
-        before:pointer-events-none ${className}`}
+      className={`hidden sm:inline-block px-4 py-1 rounded-xl text-white font-semibold 
+          bg-linear-to-r from-[#7D4DF4] to-[#A589FD] shadow-md shadow-[#7D4DF4]/40 
+          hover:opacity-90 transition ${className}`}
       {...props}
     >
       {children}

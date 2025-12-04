@@ -1,11 +1,11 @@
 import React from 'react';
 import { MoreVertical } from 'lucide-react';
-import MessageBubble from './MassageBubble';
-import MessageInput from './MassageInput';
+import MessageBubble from './MessageBubble';
+import MessageInput from './MessageInput';
 import { useChat } from '../ChatContext';
 import Button2 from '../../../components/ui/button';
 
-const MassageWindow = () => {
+const MessageWindow = () => {
   const { selectedChat: chat } = useChat();
 
   if (!chat) {
@@ -48,7 +48,11 @@ const MassageWindow = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 bg-white">
+      
+
+
+      <div className="custom-scrollbar overflow-y-auto h-screen">
+        <div className="flex-1 overflow-y-auto p-6 bg-white "> {/*scroll*/}
         {chat.messages && chat.messages.map((message) => (
           <MessageBubble
             key={message.id}
@@ -58,6 +62,7 @@ const MassageWindow = () => {
           />
         ))}
       </div>
+      </div>
 
       {/* Input */}
       <MessageInput />
@@ -65,4 +70,4 @@ const MassageWindow = () => {
   );
 };
 
-export default MassageWindow;
+export default MessageWindow;

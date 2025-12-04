@@ -3,7 +3,7 @@ export default function Footer() {
     <footer
       className="
         fixed left-0 bottom-0 w-full z-40
-        bg-gradient-to-r from-[#7D4DF4] to-[#A589FD]
+        bg-linear-to-r from-[#7D4DF4] to-[#A589FD]
         text-white
         py-6 px-6
       "
