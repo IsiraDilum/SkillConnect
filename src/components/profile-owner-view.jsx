@@ -1,4 +1,5 @@
 import { useState } from "react"
+import NavBar from "../components/NavBar";
 import {
   Home,
   MessageCircle,
@@ -24,7 +25,7 @@ import {
 
 } from "lucide-react"
 
-export default function ProfileOwnerView({ onBack }) {
+export default function ProfileOwnerView() {
   // --- State Management ---
   const [posts, setPosts] = useState([
     {
@@ -134,82 +135,13 @@ export default function ProfileOwnerView({ onBack }) {
 
 
   return (
+
       <div className="min-h-screen bg-[#FFFFFF] font-sans text-gray-900">
-
-        {/* ================= HEADER ================= */}
-        <header className="bg-white border-b border-[#A589FD] sticky top-0 z-40 px-4 shadow-sm">
-          <div className="max-w-7xl mx-auto h-14 flex items-center justify-between">
-
-            {/* LEFT SIDE */}
-            <div className="flex items-center gap-4 flex-1">
-              <button
-                  onClick={onBack}
-                  className="flex items-center gap-1 text-gray-700 hover:text-[#7D4DF4] font-medium transition-colors"
-              >
-                <ChevronLeft className="w-5 h-5" />
-
-              </button>
-
-              {/* SEARCH BAR */}
-              <div className="relative w-full max-w-xs hidden md:block">
-  <span className="absolute left-3 top-2 text-[#7D4DF4]">
-    <Search className="w-5 h-5" />
-  </span>
-
-                <input
-                    type="text"
-                    placeholder="Search"
-                    className="w-full pl-9 pr-4 py-1.5
-               bg-[#FFFFFF]
-               border border-[#A589FD]
-               rounded
-               text-black
-               focus:ring-1 focus:ring-[#7D4DF4]
-               focus:border-[#7D4DF4]
-               transition-all
-               placeholder-gray-500"
-                />
-              </div>
-
-            </div>
-
-            {/* LOGO */}
-            <div className="flex justify-center flex-none px-0">
+        <NavBar />
+        <main className="max-w-7xl mx-auto px-0 sm:px-4 py-6 pt-28">
 
 
-              <div className="w-50 h-23 overflow-hidden">
-                <img
-                    src="/src/images/logo.png"
-                    alt="Logo2"
-                    className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
-
-            {/* RIGHT SIDE NAVIGATION */}
-            <nav className="flex items-center gap-6 sm:gap-8 flex-1 justify-end">
-              <NavItem icon={<Home className="w-5 h-5 text-[#7D4DF4]" />} label="Home"  />
-              <NavItem icon={<User className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Network" />
-              <NavItem icon={<MessageCircle className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Messaging" />
-              <NavItem icon={<Bell className="w-5 h-5 text-gray-700 hover:text-[#7D4DF4]" />} label="Notifs" />
-
-              <div className="border-l pl-6 border-[#A589FD] hidden sm:block">
-                <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden cursor-pointer">
-                  <img
-                      src={profileData.profileImage}
-                      alt="Me"
-                      className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </nav>
-
-          </div>
-        </header>
-
-
-        <main className="max-w-7xl mx-auto px-0 sm:px-4 py-6 ">
-          <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-6">
 
             {/* ================= LEFT COLUMN (Profile & Feed) ================= */}
             <div className="flex-1 min-w-0">
