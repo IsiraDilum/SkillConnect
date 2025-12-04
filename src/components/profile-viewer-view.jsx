@@ -348,7 +348,6 @@ function PostCard({ name, time, content, hasImage }) {
         {hasImage && (
             <div className="w-full h-64 bg-gray-200 mb-2"></div>
         )}
-
         <div className="px-4 py-2 border-t border-gray-100">
           <div className="flex justify-between pt-1">
             <button className="flex items-center gap-1.5 px-3 py-2 rounded text-gray-600 hover:bg-gray-100 font-medium text-sm transition-colors flex-1 justify-center">
