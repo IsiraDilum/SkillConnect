@@ -11,6 +11,8 @@ const Conversation = require("./models/Conversation");
 const Message = require("./models/Message");
 const app = express();
 const server = http.createServer(app);
+//User authentication
+const jwt = require("jsonwebtoken");
 
 // Socket.IO setup
 const io = new Server(server, {
@@ -125,9 +127,18 @@ app.post("/api/login", async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) return res.json({ success: false, message: "Invalid email or password" });
 
+
+
+        const token = jwt.sign(
+        { id: user._id, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+        );
+
         res.json({
             success: true,
             message: "Login successful",
+            token,
             user: {
                 id: user._id,
                 name: user.firstName + " " + user.lastName,
