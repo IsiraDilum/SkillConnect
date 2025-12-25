@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
+// NEW ROUTES (Profile & Posts)
+const profileRoutes = require("./routes/profileRoutes");
+const postRoutes = require("./routes/postRoutes");
+
 require("dotenv").config();
 
 // Routers
@@ -10,6 +14,8 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const conversationRoutes = require("./routes/conversationRoutes");
 const messageRoutes = require("./routes/messageRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const postRoutes = require("./routes/postRoutes");
 
 const app = express();
 const server = http.createServer(app);
@@ -31,6 +37,8 @@ app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", conversationRoutes);
 app.use("/api", messageRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/posts", postRoutes);
 
 // ENVIRONMENT VARIABLES
 const PORT = process.env.PORT || 5000;

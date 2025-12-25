@@ -15,6 +15,7 @@ function App() {
     return (
         <Router>
             <Routes>
+                {/*<Route path="/" element={<Profile />} />*/}
                 <Route path="/" element={<Home />} />
                 <Route path="/skill-search" element={<SkillSearch />} />
                 <Route path="/skill-request" element={<SkillRequest />} />

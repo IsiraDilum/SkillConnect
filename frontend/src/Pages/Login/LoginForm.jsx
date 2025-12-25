@@ -26,7 +26,7 @@ function LoginPageV2() {
             if (res.ok && data.success) {
                 setTimeout(() => {
                     setIsLoading(false);
-                    navigate("/home");
+                    navigate("/profile");
                 }, 800);
             } else {
                 setIsLoading(false);
