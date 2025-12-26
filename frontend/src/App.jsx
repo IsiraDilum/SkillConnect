@@ -9,6 +9,7 @@ import Community from './Pages/Community/Community.jsx';
 import MessagePage from './Pages/Message/MessagePage.jsx';
 import Profile from './Pages/Profile/Profile.jsx';
 import Signup from './Pages/Signup/CreateAccountForm.jsx';
+import Profileown from './Pages/Profile/ProfileOwnerView.jsx';
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
         <Router>
             <Routes>
                 {/*<Route path="/" element={<Profile />} />*/}
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/skill-search" element={<SkillSearch />} />
                 <Route path="/skill-request" element={<SkillRequest />} />
                 <Route path="/community" element={<Community />} />
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signin" element={<LoginPage />} />
+                <Route path="/profileown" element={<Profileown />} />
             </Routes>
 
             <FloatingChatButton />

@@ -1,7 +1,7 @@
-// backend/routes/postRoutes.js
-
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/upload");
+const authMiddleware = require("../middleware/authMiddleware");
 const {
     createPost,
     getUserPosts,
@@ -9,9 +9,9 @@ const {
     addComment,
 } = require("../controllers/postController");
 
-router.post("/", createPost);
-router.get("/:userId", getUserPosts);
-router.post("/like", toggleLike);
-router.post("/comment", addComment);
+router.post("/", authMiddleware, upload.single("image"), createPost);
+router.get("/user/:userId", authMiddleware, getUserPosts);
+router.post("/like", authMiddleware, toggleLike);
+router.post("/comment", authMiddleware, addComment);
 
 module.exports = router;

@@ -1,5 +1,9 @@
-import { useState } from "react"
+//frontend/src/Pages/Profile/ProfileOwnerView.jsx
+import { useState, useEffect } from "react";
+
+
 import NavBar from "../../components/NavBar.jsx";
+import axios from "axios";
 import {
   Home,
   MessageCircle,
@@ -27,23 +31,12 @@ import {
 
 export default function ProfileOwnerView() {
   // --- State Management ---
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      name: "Person Name",
-      time: "3d ago",
-      content: "Just finished a great workshop on UX Accessibility. It's amazing how small changes can make such a big difference for users.",
-      hasImage: true,
-    },
-    {
-      id: 2,
-      name: "Person Name",
-      time: "5d ago",
-      content: "Looking for recommendations for advanced React patterns. Drop your favorite resources below! 👇",
-      hasImage: false,
-    },
-  ])
+  const [posts, setPosts] = useState([]);
 
+  const userId = localStorage.getItem("userId");
+  const API = axios.create({
+    baseURL: "http://localhost:5000/api",
+  });
   const [portfolioLinks, setPortfolioLinks] = useState([
     { id: 1, title: "GitHub", url: "github.com/alex", icon: <Github className="w-5 h-5" /> },
     { id: 2, title: "LinkedIn", url: "linkedin.com/in/alex", icon: <Linkedin className="w-5 h-5" /> },
@@ -59,9 +52,9 @@ export default function ProfileOwnerView() {
 
 
   const [feedbackItems] = useState([
-    { id: 1, name: "Sarah J.", rating: 5, comment: "Great collaborator and clear communicator!" },
-    { id: 2, name: "Mike T.", rating: 3, comment: "Good technical skills, delivered on time." },
-    { id: 3, name: "Jessica R.", rating: 4, comment: "Very professional approach." },
+    { id: 1, name: "user name", rating: 5, comment: "Great collaborator and clear communicator!" },
+    { id: 2, name: "user name", rating: 3, comment: "Good technical skills, delivered on time." },
+    { id: 3, name: "user name", rating: 4, comment: "Very professional approach." },
   ])
 
   // Modals State
@@ -72,10 +65,10 @@ export default function ProfileOwnerView() {
   const [profileData, setProfileData] = useState({
     coverImage: "from-blue-600 to-cyan-500",
     profileImage: "/user-profile-illustration.png", // Replace with your actual image path
-    name: "Alex Anderson",
-    pronouns: "(He/Him)",
-    position: "Product Manager | UX Enthusiast",
-    university: "Stanford University",
+    name: "name",
+    pronouns: "empty",
+    position: "empty | empty",
+    university: "empty",
     description:
         "Passionate product manager with expertise in digital transformation. Creative problem solver committed to user-centric design and innovation.",
     skills: [
@@ -90,30 +83,53 @@ export default function ProfileOwnerView() {
 
   // --- Handlers ---
 
-  const handlePostSubmit = () => {
-    if (newPostContent.trim()) {
-      const post = {
-        id: posts.length + 1,
-        name: profileData.name,
-        time: "Just now",
+  const handlePostSubmit = async () => {
+    if (!newPostContent.trim()) return;
+
+    try {
+      const res = await API.post("/posts", {
+        userId,
         content: newPostContent,
-        hasImage: false,
-      }
-      setPosts([post, ...posts])
-      setNewPostContent("")
-      setShowPostModal(false)
+      });
+
+      setPosts([res.data, ...posts]);
+      setNewPostContent("");
+      setShowPostModal(false);
+    } catch (err) {
+      console.error("Post error", err);
     }
-  }
+  };
+
 
   const handleOpenEditModal = () => {
     setEditFormData(profileData) // Reset form to current data
     setShowEditModal(true)
   }
 
-  const handleSaveProfile = () => {
-    setProfileData(editFormData)
-    setShowEditModal(false)
-  }
+  const handleSaveProfile = async () => {
+    try {
+      const [firstName, ...rest] = editFormData.name.split(" ");
+      const lastName = rest.join(" ");
+
+      await API.put(`/profile/${userId}`, {
+        firstName,
+        lastName,
+        pronouns: editFormData.pronouns,
+        headline: editFormData.position,
+        university: editFormData.university,
+        about: editFormData.description,
+        skills: editFormData.skills,
+        profileImage: editFormData.profileImage,
+        coverImage: editFormData.coverImage,
+      });
+
+      setProfileData(editFormData);
+      setShowEditModal(false);
+    } catch (err) {
+      console.error("Profile update error", err);
+    }
+  };
+
   // eslint-disable-next-line no-unused-vars
   const [coverImageFile, setCoverImageFile] = useState(null);
 
@@ -126,12 +142,48 @@ export default function ProfileOwnerView() {
 
   // Example data: list of people who poked you
   const [pokesData] = useState([
-    { id: 1, name: "Alice", avgRating: 4, avatar: "/avatar1.png" },
-    { id: 2, name: "Bob", avgRating: 5, avatar: "/avatar2.png" },
-    { id: 3, name: "Charlie", avgRating: 3, avatar: "/avatar3.png" },
+    { id: 1, name: "user name", avgRating: 4, avatar: "/avatar1.png" },
+    { id: 2, name: "user name", avgRating: 5, avatar: "/avatar2.png" },
+    { id: 3, name: "user name", avgRating: 3, avatar: "/avatar3.png" },
   ]);
 
 
+  useEffect(() => {
+    if (!userId) return;
+
+    // Load profile
+    API.get(`/profile/${userId}`)
+        .then(res => {
+          const user = res.data;
+
+          setProfileData({
+            coverImage: user.coverImage || "from-blue-600 to-cyan-500",
+            profileImage: user.profileImage || "/placeholder.svg",
+            name: `${user.firstName} ${user.lastName}`,
+            pronouns: user.pronouns || "",
+            position: user.headline || "",
+            university: user.university || "",
+            description: user.about || "",
+            skills: user.skills || [],
+          });
+
+          setEditFormData({
+            coverImage: user.coverImage || "",
+            profileImage: user.profileImage || "",
+            name: `${user.firstName} ${user.lastName}`,
+            pronouns: user.pronouns || "",
+            position: user.headline || "",
+            university: user.university || "",
+            description: user.about || "",
+            skills: user.skills || [],
+          });
+        });
+
+    // Load posts
+    API.get(`/posts/${userId}`)
+        .then(res => setPosts(res.data));
+
+  }, [userId]);
 
 
   return (
@@ -398,8 +450,25 @@ export default function ProfileOwnerView() {
               {/* --- Feed Posts --- */}
               <div className="space-y-4 ">
                 {posts.map((post) => (
-                    <PostCard key={post.id} {...post} currentUserImage={profileData.profileImage} />
+                    <PostCard
+                        key={post._id || post.id}
+                        name={
+                          post.user
+                              ? `${post.user.firstName} ${post.user.lastName}`
+                              : profileData.name
+                        }
+                        time={
+                          post.createdAt
+                              ? new Date(post.createdAt).toLocaleDateString()
+                              : "Just now"
+                        }
+                        content={post.content}
+                        hasImage={!!post.image}
+                        currentUserImage={profileData.profileImage}
+                    />
                 ))}
+
+
               </div>
             </div>
 

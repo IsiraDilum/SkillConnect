@@ -1,26 +1,41 @@
-// backend/controllers/postController.js
-
 const Post = require("../models/Post");
 
 /**
+ * =========================
  * CREATE POST
+ * =========================
  */
 exports.createPost = async (req, res) => {
     try {
+        const content = req.body.content || "";
+
+        let imagePath = "";
+        if (req.file) {
+            imagePath = req.file.path; // uploads/xxxx.jpg
+        }
+
         const post = await Post.create({
-            user: req.body.userId,
-            content: req.body.content,
-            image: req.body.image || "",
+            user: req.user.id, // ✅ from JWT
+            content,
+            image: imagePath,
         });
 
-        res.status(201).json(post);
+        const populatedPost = await post.populate(
+            "user",
+            "firstName lastName profileImage"
+        );
+
+        res.status(201).json({ success: true, post: populatedPost });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Create Post Error:", err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 };
 
 /**
+ * =========================
  * GET POSTS BY USER
+ * =========================
  */
 exports.getUserPosts = async (req, res) => {
     try {
@@ -28,49 +43,68 @@ exports.getUserPosts = async (req, res) => {
             .populate("user", "firstName lastName profileImage")
             .sort({ createdAt: -1 });
 
-        res.json(posts);
+        res.json({ success: true, posts });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Get User Posts Error:", err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 };
 
 /**
+ * =========================
  * LIKE / UNLIKE POST
+ * =========================
  */
 exports.toggleLike = async (req, res) => {
     try {
-        const { postId, userId } = req.body;
+        const { postId } = req.body;
+        const userId = req.user.id;
 
         const post = await Post.findById(postId);
-
         if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ success: false, message: "Post not found" });
         }
 
-        if (post.likes.includes(userId)) {
+        const alreadyLiked = post.likes.includes(userId);
+
+        if (alreadyLiked) {
             post.likes.pull(userId);
         } else {
             post.likes.push(userId);
         }
 
         await post.save();
-        res.json(post);
+
+        res.json({
+            success: true,
+            liked: !alreadyLiked,
+            likesCount: post.likes.length,
+        });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Toggle Like Error:", err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 };
 
 /**
+ * =========================
  * ADD COMMENT
+ * =========================
  */
 exports.addComment = async (req, res) => {
     try {
-        const { postId, userId, text } = req.body;
+        const { postId, text } = req.body;
+        const userId = req.user.id;
+
+        if (!text || !text.trim()) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Comment text required" });
+        }
 
         const post = await Post.findById(postId);
-
         if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ success: false, message: "Post not found" });
         }
 
         post.comments.push({
@@ -79,8 +113,13 @@ exports.addComment = async (req, res) => {
         });
 
         await post.save();
-        res.json(post);
+
+        const populatedPost = await Post.findById(postId)
+            .populate("comments.user", "firstName lastName profileImage");
+
+        res.json({ success: true, post: populatedPost });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Add Comment Error:", err);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 };
