@@ -15,8 +15,11 @@ function LoginPageV2() {
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+
         try {
-            const apiBase = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+            const apiBase =
+                import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
             const res = await fetch(`${apiBase}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -34,13 +37,15 @@ function LoginPageV2() {
                 }, 500);
             } else {
                 setIsLoading(false);
-                alert("Invalid credentials");
+                alert(data.message || "Invalid credentials");
             }
         } catch (err) {
             setIsLoading(false);
             alert("Network error");
+            console.error(err);
         }
     };
+
 
     return (
         <>

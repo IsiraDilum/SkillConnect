@@ -16,7 +16,8 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Home />} />
+                {/*<Route path="/" element={<Profile />} />*/}
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/skill-search" element={<SkillSearch />} />
                 <Route path="/skill-request" element={<SkillRequest />} />
                 <Route path="/community" element={<Community />} />
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signin" element={<LoginPage />} />
+                <Route path="/profileown" element={<Profileown />} />
             </Routes>
 
             <FloatingChatButton />
