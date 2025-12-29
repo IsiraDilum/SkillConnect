@@ -10,6 +10,7 @@ import MessagePage from './Pages/Message/MessagePage.jsx';
 import Profile from './Pages/Profile/Profile.jsx';
 import Signup from './Pages/Signup/CreateAccountForm.jsx';
 import AuthModal from './components/AuthModal.jsx';
+import Profileown from "./Pages/Profile/ProfileOwnerView.jsx";
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
         <Router>
             <Routes>
                 {/*<Route path="/" element={<Profile />} />*/}
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/skill-search" element={<SkillSearch />} />
                 <Route path="/skill-request" element={<SkillRequest />} />
                 <Route path="/community" element={<Community />} />

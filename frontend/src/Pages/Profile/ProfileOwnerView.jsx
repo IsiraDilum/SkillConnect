@@ -212,7 +212,7 @@ export default function ProfileOwnerView() {
                     }
                 >
                   {!profileData.coverImage?.startsWith("blob:") && (
-                      <div className={`absolute inset-0 bg-gradient-to-r ${profileData.coverImage}`} />
+                      <div className={`absolute inset-0 bg-linear-to-r ${profileData.coverImage}`} />
                   )}
 
                   {/* Edit Button */}
@@ -290,8 +290,7 @@ export default function ProfileOwnerView() {
                               setShowPokesPopup(true);
                               setNewPokesCount(0);
                             }}
-                            className=" rounded-full relative flex-1 bg-gradient-to-r text-white font-semibold bg-linear-to-r from-[#7D4DF4] to-[#A589FD] hover:to-[#703BEA]
-           font-semibold text-sm shadow-sm transition-all"
+                            className="rounded-full relative flex-1 bg-linear-to-r text-white font-semibold from-[#7D4DF4] to-[#A589FD] hover:to-[#703BEA] text-sm shadow-sm transition-all"
 
 
 
@@ -386,8 +385,8 @@ export default function ProfileOwnerView() {
 
 
                     {/* Right: Skills Box */}
-                    <div className="lg:w-64 flex-shrink-0  ">
-                      <div className="bg-white border  rounded-lg p-4 shadow-sm h-full bg-[#A589FD] border-[#A589FD]">
+                    <div className="lg:w-64 shrink-0">
+                      <div className="border rounded-lg p-4 shadow-sm h-full bg-[#A589FD] border-[#A589FD]">
                         <div className="flex items-center justify-between mb-4">
                           <h3 className="font-bold text-sm">Top Skills</h3>
                           <PenTool
@@ -430,7 +429,7 @@ export default function ProfileOwnerView() {
               {/* --- Start a Post (Trigger) --- */}
               <div className="bg-white sm:rounded-xl shadow-[0_0_20px_#A589FD] p-4 mb-4">
                 <div className="flex gap-3 mb-2">
-                  <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden shrink-0">
                     <img src={profileData.profileImage} alt="Me" className="w-full h-full object-cover" />
                   </div>
                   <button
@@ -789,7 +788,7 @@ export default function ProfileOwnerView() {
                               onClick={() =>
                                   setEditFormData({ ...editFormData, coverImage: gradient })
                               }
-                              className={`w-20 h-12 bg-gradient-to-r ${gradient} rounded-lg border-2 flex-shrink-0 transition-all ${
+                              className={`w-20 h-12 bg-linear-to-r ${gradient} rounded-lg border-2 shrink-0 transition-all ${
                                   editFormData.coverImage === gradient
                                       ? "border-black ring-2 ring-black ring-offset-1"
                                       : "border-transparent"
@@ -1123,7 +1122,7 @@ function PortfolioLink({ icon, title, url, onEdit }) {
 function SimilarProfile({ name, role, avgRating }) {
   return (
       <div className="flex items-center gap-3 border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex-shrink-0"></div>
+        <div className="w-10 h-10 rounded-full bg-gray-200 shrink-0"></div>
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-start">
             <p className="text-sm font-semibold text-gray-900 truncate">{name}</p>
@@ -1134,7 +1133,7 @@ function SimilarProfile({ name, role, avgRating }) {
             </div>
           </div>
           <p className="text-xs text-gray-500 truncate">{role}</p>
-          <button className="mt-1 text-xs  bg-gradient-to-r text-white font-semibold bg-linear-to-r from-[#7D4DF4] to-[#A589FD] shadow-md shadow-[#7D4DF4]/40 hover:opacity-90 transition rounded-full px-3 py-1 hover:border-black hover:text-gray-700 transition-colors">
+          <button className="mt-1 text-xs bg-linear-to-r text-white font-semibold from-[#7D4DF4] to-[#A589FD] shadow-md shadow-[#7D4DF4]/40 hover:opacity-90 transition-colors rounded-full px-3 py-1 hover:border-black hover:text-gray-700 transition-colors">
             View Profile
           </button>
         </div>
