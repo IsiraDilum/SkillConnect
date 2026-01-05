@@ -5,7 +5,7 @@ SkillConnect is a platform where students can connect, share skills, request hel
 ## Team Members
 - Dinil Hansara
 - Isira Dilum
-- Sehansa Manothmi
+- Sehansa Karunathilaka 
 - Tiranga Liyanage
 - Heshan Hansana
 
