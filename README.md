@@ -113,19 +113,15 @@ npm install
 
 ### Development Mode
 
-1. Start MongoDB (if running locally)
-```bash
-mongod
-```
-
-2. Run the backend server
+1. Run the backend server
 ```bash
 cd backend
-node server.js
+npm run dev
+(note that this command should be used)
 ```
 The backend will run on http://localhost:5000
 
-3. In a new terminal, run the frontend
+2. In a new terminal, run the frontend
 ```bash
 cd frontend
 npm run dev
